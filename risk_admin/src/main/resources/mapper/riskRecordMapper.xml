@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.dao.mapper.RiskRecordMapper">  
+    
+    <!-- 根据交易号查找 -->  
+    <select id="getRiskRecordByTradeNo" resultType="riskRecord" parameterType="string">  
+       select * from risk_record where trade_no = #{tradeNo}
+    </select>
+    
+    <!-- 根据id查询 -->
+    <select id="getRiskRecordById" resultType="riskRecord" parameterType="int">  
+       select * from risk_record where id = #{id}
+    </select>
+       
+    <!-- 查询所有 -->
+    <select id="getRiskRecordAll" resultType="riskRecord">  
+       select * from risk_record where 1=1
+    </select>
+    
+    <!-- 新增记录 -->
+    <insert id="addRiskRecord" parameterType="riskRecord">
+    	insert into risk_record(pid,trade_no,risk_type,risk_level,risk_status) 
+    	values(#{pid}, #{tradeNo}, #{riskType}, #{riskLevel}, #{riskStatus})
+    </insert>
+    
+    <!-- 查询风险记录关联信息 -->
+    <sql id="riskInfoSql">
+    	select 
+        	rr.id,rr.trade_no,rr.risk_type,rr.risk_level,rr.risk_status ,rr.create_time, 
+			wti.merchant_no, m.merchant_name merch_name, m.account_no bank_card_no,
+			m.id_card_no cert_no,m.login_phone mobile
+		from 
+			risk_record rr 
+			left join wechat_trans_info wti on wti.trans_no=rr.trade_no 
+			left join merchant m on m.merchant_no=wti.merchant_no
+		where 1=1 
+    </sql>
+    <!-- 单条件id -->
+    <select id="findRiskInfoById" resultType="map" parameterType="int">
+    	<include refid="riskInfoSql"/>
+		    AND rr.id = #{id}
+    </select>
+    <!-- 根据map条件 -->
+    <select id="findRiskInfo" resultType="map" parameterType="map">  
+        <include refid="riskInfoSql"/>
+		<if test="id!=null and id!=''">
+		    AND rr.id = #{id}
+		</if>
+		<if test="trade_no!=null and trade_no!=''">
+		    AND rr.trade_no = #{trade_no}
+		</if>
+		<if test="risk_status!=null and risk_status!='' and risk_status!='-1'">
+		    AND rr.risk_status = #{risk_status}
+		</if>
+		<if test="merchant_no!=null and merchant_no!=''">
+		    AND wti.merchant_no = #{merchant_no}
+		</if>
+			order by rr.id asc
+    </select>
+    
+    <!-- 新增记录到risk_record_back -->
+    <insert id="addRiskRecordBack" parameterType="riskRecordBack">
+    	insert into risk_record_back(RECORD_ID,BANK_CARD_NO,CERT_NO,BUSINESS_LICENSE_NO,MOBILE,MOBILE_IP,ORDER_IP,MERCH_NAME,
+			EMAIL_ADDRESS,PROCESS_CODE,OPERATE_USER,RET_CODE,RET_MSG,MERCHANT_NO) 
+			values(#{recordId,jdbcType=NUMERIC},#{bankCardNo,jdbcType=VARCHAR},#{certNo,jdbcType=VARCHAR},
+			#{businessLicenseNo,jdbcType=VARCHAR},#{mobile,jdbcType=VARCHAR},#{mobileIp,jdbcType=VARCHAR},
+			#{orderIp,jdbcType=VARCHAR},#{merchName,jdbcType=VARCHAR},#{emailAddress,jdbcType=VARCHAR},
+			#{processCode,jdbcType=VARCHAR},#{operateUser,jdbcType=VARCHAR},#{retCode,jdbcType=VARCHAR},
+			#{retMsg,jdbcType=VARCHAR},#{merchantNo,jdbcType=VARCHAR})
+    </insert>
+    
+    <delete id="deleteRiskRecordById" parameterType="int">
+    	delete from risk_record where id=#{id}
+    </delete>
+    
+    <delete id="deleteRiskRecordBackByRecordId" parameterType="int">
+    	delete from risk_record_back where record_id=#{recordId}
+    </delete>
+    
+    <update id="updateRiskRecordStatusById">
+    	update risk_record set risk_status=#{riskStatus, jdbcType=VARCHAR} where id=#{id,jdbcType=NUMERIC}
+    </update>
+    
+    <select id="getRiskRecordBackByRecordId" parameterType="int" resultType="riskRecordBack">
+    	select * from risk_record_back where record_id=#{recordId}
+    </select>
+    
+    
+    
+</mapper>

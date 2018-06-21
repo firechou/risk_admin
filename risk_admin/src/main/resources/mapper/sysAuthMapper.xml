@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.dao.mapper.SysAuthMapper">  
+      
+    <select id="findAuthByUserId" resultType="sysAuth" parameterType="int">  
+        select rsa.* 
+        from risk_sys_user rsu
+		left join risk_sys_user_role rsur on rsur.user_id=rsu.id
+		left join risk_sys_role rsr on rsr.id=rsur.role_id
+		left join risk_sys_role_auth rsra on rsra.role_id=rsr.id
+		left join risk_sys_auth rsa on rsa.id=rsra.auth_id
+		where rsu.id=#{userId}
+    </select>
+    
+</mapper>

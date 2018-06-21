@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:th="http://www.thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" 
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+layout:decorator="layout"
+>
+<head>
+	
+	<!-- <script th:src="@{/js/index.js}" type="text/javascript"></script> -->	
+	
+  <title>首页</title>
+
+</head>	
+<body>
+	<div layout:fragment="content">
+		<!-- 面包屑 -->
+		<div class="row">
+			<div class="col-md-12">
+				<ol class="breadcrumb">
+					<li><a href="#">首页</a></li>
+				</ol>
+			</div>
+		</div>
+		<!-- 内容主体区 -->
+		<div class="row">
+		<div class="col-md-12">欢迎您！</div>
+			
+		
+		<!-- <div class="col-md-12">
+			<div class="panel panel-info">
+				<div class="panel-heading">交易量走势</div>
+				<div class="pabel-body">
+					<canvas id="myChart1" height="100vh"></canvas>
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-md-12">
+			<div class="panel panel-info">
+				<div class="panel-heading">交易行为统计</div>
+				<div class="pabel-body">
+					<div class="row">
+						<div class="col-md-6">
+							<canvas id="myChart2" height="200vh"></canvas>
+						</div>
+						<div class="col-md-6">
+							<canvas id="myChart3" height="200vh"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> -->
+		
+		</div>
+	</div>
+</body>
+</html>	

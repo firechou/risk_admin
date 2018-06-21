@@ -1,0 +1,56 @@
+####################应用配置
+server:
+  port: 8080
+  context-path: /risk_admin
+  session:
+    timeout: 3600
+  tomcat:
+    uri-encoding: UTF-8
+
+####################配置日志相关
+#logging: 
+#  level:
+#    root: info
+#  path : /home/risk_admin
+#  file : risk_admin.log #10MB之后产生新的日志文件
+
+####################spring配置
+spring: 
+  profiles:  
+    active: prod
+  #设置http请求编码  
+  http:
+    encoding:
+      charset: UTF-8   
+      force: true
+      enabled: true 
+      #设置特定请求路径的编码
+      mutiCharset: GBK
+      mutiUrls: 
+        - /callback/alipayRiskgo
+  #thyemleaf相关配置
+  thymeleaf:
+    enabled: true
+    cache: false
+    check-template-location: true
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML5
+    encoding: UTF-8
+    content-type: text/html
+  #静态资源路径相关
+  resources:
+    static-locations: classpath:/static
+####################mybatis配置    
+mybatis:
+  mapper-locations: classpath:/mapper/*.xml
+  type-aliases-package: com.dao.entity
+  configuration:
+    map-underscore-to-camel-case: true
+
+####################分页配置
+pagehelper:
+  helper-dialect: oracle
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql

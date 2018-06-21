@@ -1,0 +1,47 @@
+
+################ 生产环境
+
+  #数据库连接池druid相关配置
+spring:  
+  datasource:
+    name: test
+#    url: jdbc:oracle:thin:@47.91.228.255:1521:ora11g
+    url: jdbc:oracle:thin:@172.31.45.41:1521:ora11g
+    username: hkpay
+    password: imPhk245ay
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    filters: stat
+    maxActive: 40
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 3000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 1 from dual
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    
+
+################ 风险通知
+#推送验签公钥====平台验签，生产环境该公钥与ALIPAY_PUBLIC_KEY相同
+PUBLIC_KEY: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlwHPEkja2JGQm7TjCSD+3ZOwjgcMex/l93GCYg0cgNrzRisQh/obz5sAro33acw69cjJ1XBQjOSiS0TKZr6aKXcqjU58x0xF97sjBWZut+ePnTA0mAh626qcgROOhDkAJ7YZm5FOXgQHX4ldR7m/FA620mlj5372ClYeFoikcWRu6VM8mJo6WUIviyNysoEBaTGb6zw9we2C4czSiA/P+OTZ59BeHuLDlX7vgOYOBhP2C0f9vXyPS3vFwIpB5RZehS807guLW8aelq105tIbMZTB4/9Yf5YSh6l4FiS6XjSwB8Vv+1EtAEBrNbQPDTGamMhm6uDYVqEaBTsms6VMwwIDAQAB
+
+################ 数据同步
+
+SERVER_URL: http://openapi.alipay.com/gateway.do
+
+#appid
+APP_ID: 2018033002473527
+
+#众赢私钥====请求参数加签
+APP_PRIVATE_KEY: MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDN1KyV43CMP3ND7p3ZjgkdFEy7U+UkeRLzTPbBfOSwkbJ3NtzhpG0UyYn9fW996U7Q1c3FX5tL4RkTbhRz1Jn9iEJgqNNVcrEqeAYtE4/xAUsPbRIccQFWrRfVeg8UzUAjv8Z2eJmtvKyDeZro47FNlVeVw9a2l7d4u0fI+f4IVZpy7kQLODyUcYnPwyhThpDBUYQCSLzVOCHuWH9Gb/Qi5AXQ772bcPeZBeDV3cdmwELywBnMQPJU8bU2JLAyd5qX/PkGUXsx/4RGplUV5zuQ1uRUb8LGlkMwwYLqRbZvAoPvkf/yVinmrcXyaDnTwWTRp1mkm2XPR10IsK4Yv6AfAgMBAAECggEANHvhUgr/nNNlCdJjb6D3E/IkKrQWvrkcqutaFDZLffZ4wks8AVFS+zT0ua1ta3a9QSTzZjudtrh8E2dDUdHJPkurWUhTMvuez0xxjrbpQjPpNtLCBnyOMdLLPAT2qYA4taTl7zmLPjDY8GFmrbG5eSX2glrAeiivgNqIUGfmbaso+APMh1C9io0X4wf1JWcSF1bZ3i31rvDOaN+9hq+I8ggQXoqN+a9vGH+SfR85WSoOXPpVSmka59E54GLLAzUjTfYLYzh575mnzB7EfY7q2GY/V/zr6FSN/b4tT9YOCGCvSvDiSxcOf9Ocg4B8IJkmXCFBYgcndr9n/zr5JcuuAQKBgQD1MaQUDCS8l1f3KgPDnd4yg62Sq5FKya22FbFisZsWJzk/6DljbDX6axngRufhZFo31Fvv/8qCqAxUaXx/+WqDKYpdClkpbXZSzOuBTTKVPXKNkSrinzONH0z6N8Drq9IKtafE6SSb196A5Hhi9Htj/wT2KwzPJjS/0ZIaUcX/AQKBgQDW5uzS2oUzniQ2h+h6FvpB3P38cdmAlabNb1C4Yw7ux5TcRA/qgOQd6uuqVMB1LVj7vNfJ8zbbQ39fNlGk0VJ62hNNi66V4D1HwM1uSfqDvs8iIzWehbbmoCqxwLLf1cqPQtP7xI7XEjlhh/xA7RJkr0iMcxGXWe95xapf/IS/HwKBgBVezj4xEMKfLjuMnedeyw78CxTNf0xVZ56HJX7EnA/CO2smgln4BHxe+VJi27L5XCOhjqHMWYopu2lgCEnfIzlrVXPmgv7pW3a8BYqvf8kiIenUzTgTSBr0r3DfiyD/SL9GNekjqN0sY2g4gYWeaWK9x2DtP6COY+qUCXfhyLABAoGBALyrVqWzhZgQsdhSL47ol2O1oiK8zWivehcIMIUBKr4F6LIM6zBFYoDFm4saBzGY03OHkqfRaIrN0oiDxt/9if0jcij1hhw9F2/kXDcEqfR6U52z7cIzwKTvXyxZcnFDYCewUy3JnmJBtLDk01kpCantnbL43yvSoIV3PaIxr1WfAoGBAJPPPvVvCDBvbpy7fyRl+ofMim3FwNnWWki8SlGjVXRTp/+qTDPJuC5OFbeC6wKwWuE3HjuKwMdCd9d04/rdm+T7EC47I4ePGzJ3hU1nxGlR2fonaxAod+I59Nvl5aYUxokalCMQJk8DqxVo0et/x6kraDT07zN1X+SZrtNsUbK9
+
+#众赢公钥====提供给支付宝，获取请求参数验签
+APP_PUBLIC_KEY: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzdSsleNwjD9zQ+6d2Y4JHRRMu1PlJHkS80z2wXzksJGydzbc4aRtFMmJ/X1vfelO0NXNxV+bS+EZE24Uc9SZ/YhCYKjTVXKxKngGLROP8QFLD20SHHEBVq0X1XoPFM1AI7/GdniZrbysg3ma6OOxTZVXlcPWtpe3eLtHyPn+CFWacu5ECzg8lHGJz8MoU4aQwVGEAki81Tgh7lh/Rm/0IuQF0O+9m3D3mQXg1d3HZsBC8sAZzEDyVPG1NiSwMneal/z5BlF7Mf+ERqZVFec7kNbkVG/CxpZDMMGC6kW2bwKD75H/8lYp5q3F8mg508Fk0adZpJtlz0ddCLCuGL+gHwIDAQAB
+
+#支付宝公钥====获取支付宝返回参数验签
+ALIPAY_PUBLIC_KEY: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlwHPEkja2JGQm7TjCSD+3ZOwjgcMex/l93GCYg0cgNrzRisQh/obz5sAro33acw69cjJ1XBQjOSiS0TKZr6aKXcqjU58x0xF97sjBWZut+ePnTA0mAh626qcgROOhDkAJ7YZm5FOXgQHX4ldR7m/FA620mlj5372ClYeFoikcWRu6VM8mJo6WUIviyNysoEBaTGb6zw9we2C4czSiA/P+OTZ59BeHuLDlX7vgOYOBhP2C0f9vXyPS3vFwIpB5RZehS807guLW8aelq105tIbMZTB4/9Yf5YSh6l4FiS6XjSwB8Vv+1EtAEBrNbQPDTGamMhm6uDYVqEaBTsms6VMwwIDAQAB

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+
+    <property name="LOG_HOME" value="/home/tomcatlog/logs/risk_admin" />
+    
+    <!-- 控制台输出日志 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - [%method,%line] - %n%msg%n</pattern>
+        </layout>
+    </appender>
+    
+    <!-- 按照每天生成日志文件 -->
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_HOME}/online.log</file>
+	<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- 日志文件输出的文件名 -->
+			<fileNamePattern>${LOG_HOME}/online.%d{yyyy-MM-dd}.%i.log
+			</fileNamePattern>
+			<!-- 日志文件保留天数 -->
+			<maxHistory>365</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>500MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy> 
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - [%method,%line] - %msg%n</pattern>
+		</encoder>
+	</appender>
+    
+    <!-- 指定特定包名下的日志输出，例如特别指定com.test下的日志级别为warn -->
+    <!-- level 输出指定日志级别以上的日志，日志级别大小关系：TRACE<DEBUG<INFO<WARN<ERROR -->
+    <!-- appender-ref 指定输入日志形式 -->
+    
+    <!-- 控制jdbc日志输出 -->
+    <logger name="jdbc.sqlonly" level="OFF" />
+	<logger name="jdbc.resultsettable" level="OFF" />
+	<logger name="jdbc.sqltiming" level="info" /> 
+	<logger name="jdbc.audit" level="error" />
+	<logger name="jdbc.connection" level="error" />
+	<logger name="jdbc.resultset" level="error" />
+	
+    <!-- 指定所有的日志的级别，优先级比logger设置的优先级高  -->
+    <root level="debug">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE" />
+	</root>
+	
+</configuration>

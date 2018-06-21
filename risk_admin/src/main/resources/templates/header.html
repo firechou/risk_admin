@@ -1,0 +1,78 @@
+
+<!-- 顶部导航 -->
+<div class="row" id="menu" th:fragment="header">
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				
+				<!-- 当屏幕变窄到一定尺寸时显示该toggle按钮 -->
+				<button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#navbar-toggle-btn" aria-expanded="false">
+					<span class="sr-only"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				
+				<a class="navbar-brand" href="#">FK</a>
+				
+			</div>
+			
+			<div class="collapse navbar-collapse" id="navbar-toggle-btn">
+				<ul class="nav navbar-nav">
+					<li ><a th:href="@{/index}">首页</a></li>
+					<li ><a th:href="@{/risk}">风控管理</a></li>
+					<!-- <li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">交易管理<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="trans">交易查询</a></li>
+							<li><a href="#">交易统计</a></li>
+							<li class="divider" role="separator"></li>
+							<li><a href="#">对账管理</a></li>
+						</ul>
+					</li> -->
+					
+					<li sec:authorize="hasAuthority('SYS_MANAGE')" class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">系统管理<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							
+							<li><a href="#">权限管理</a></li>
+							<li><a href="#">权限组管理</a></li>
+							<li class="divider" role="separator"></li>
+							<li><a href="#">部门管理</a></li>
+							<li><a th:href="@{/sysuser/query}">用户管理</a></li>
+							<li><a href="#">登录日志</a></li>
+							<li class="divider" role="separator"></li>
+							<li><a href="#">字典管理</a></li>
+							<li><a href="#">系统配置</a></li>
+							
+						</ul>
+					</li>
+				</ul>
+				
+				<form class="navbar-form navbar-left">
+					<div class="form-group">
+						<input class="form-control" type="text" placeholder="输入关键字..."/>
+					</div>
+					<button class="btn btn-default" type="button">搜索</button>
+				</form>
+				<ul class="nav navbar-nav navbar-right">
+					<!-- <li><p class="navbar-text">上次登录时间：2017/12/8 12:22:00</p></li> -->
+					<li><p class="navbar-text">欢迎你，<span sec:authentication="name">游客</span>！</p></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">个人中心&nbsp;<span class="badge">3</span>&nbsp;<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#"><span class="glyphicon glyphicon-envelope"></span>&nbsp;我的通知&nbsp;<span class="badge">3</span></a></li>
+							<li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;我的资料</a></li>
+							<li><a href="#"><span class="glyphicon glyphicon-asterisk"></span>&nbsp;修改密码</a></li>
+							<li class="divider" role="separator"></li>
+							<li><a th:href="@{/logout}"><span class="glyphicon glyphicon-off"></span>&nbsp;登出</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			
+		</div>
+	</nav>
+</div>
+
+
